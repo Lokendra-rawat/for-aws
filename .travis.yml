@@ -3,32 +3,28 @@ services:
   - docker
 
 before_install:
-  - docker build -t loki194/react-test -f ./myapp/Dockerfile.dev ./myapp
+  - docker build -t loki194/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run loki194/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t loki194/deals-client ./myapp
-  - docker build -t loki194/deals-nginx ./nginx
-  - docker build -t loki194/deals-server ./server
-  - docker build -t loki194/deals-worker ./worker
+  - docker build -t loki194/aws-client ./client
+  - docker build -t loki194/aws-nginx ./nginx
 
   # take these images and push to the docker-hub
   
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push loki194/deals-client
-  - docker push loki194/deals-nginx
-  - docker push loki194/deals-server
-  - docker push loki194/deals-worker
+  - docker push loki194/aws-client
+  - docker push loki194/aws-nginx
 
 deploy:
   provider: elasticbeanstalk
   region: us-east-2
-  app: deals-docker
-  env: DealsDocker-env
+  app: test-aws
+  env: TestAws-env
   bucket_name: elasticbeanstalk-us-east-2-327326504583
-  bucket_path: docker-deals
+  bucket_path: test-aws
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
