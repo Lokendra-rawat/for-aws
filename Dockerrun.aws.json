@@ -5,7 +5,6 @@
       "name": "client",
       "image": "loki194/aws-client",
       "hostname": "client",
-      "essential": true,
       "memory": 128
     },
     {
