@@ -2,12 +2,6 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "client",
-      "image": "loki194/aws-client",
-      "hostname": "client",
-      "memory": 128
-    },
-    {
       "name": "nginx",
       "image": "loki194/aws-nginx",
       "hostname": "nginx",
@@ -22,6 +16,12 @@
       "links": [
         "client"
       ]
+    },
+    {
+      "name": "client",
+      "image": "loki194/aws-client",
+      "hostname": "client",
+      "memory": 128
     }
   ]
 }
