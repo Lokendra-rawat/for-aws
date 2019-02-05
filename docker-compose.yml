@@ -14,4 +14,4 @@ services:
       context: ./client
     volumes:
       - /usr/app/node_modules
-      - ./myapp:/usr/app
+      - ./client:/usr/app
